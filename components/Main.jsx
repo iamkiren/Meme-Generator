@@ -1,11 +1,21 @@
+import React from "react"
+
 export default function Main() {
-    /**
-     * Challenge: move the hardcoded meme info into React
-     * state. Use an object with `topText`, `bottomText`,
-     * and `image` properties, and set the initial values to
-     * the ones hardcoded below.
-     */
-    
+   
+    const[memeInfo, setMemeInfo] = React.useState({
+        topText: "One does not simply",
+        bottomText: "Walk into Mordor",
+        image: "http://i.imgflip.com/1bij.jpg"
+    })
+
+    function handleChange(event) {
+        const { name, value } = event.target
+        setMemeInfo(prevMemeInfo => ({
+            ...prevMemeInfo,
+            [name]: value
+        }))
+    }
+
     return (
         <main>
             <div className="form">
@@ -14,6 +24,8 @@ export default function Main() {
                         type="text"
                         placeholder="One does not simply"
                         name="topText"
+                        value={memeInfo.topText}
+                        onChange={handleChange}
                     />
                 </label>
 
@@ -22,14 +34,16 @@ export default function Main() {
                         type="text"
                         placeholder="Walk into Mordor"
                         name="bottomText"
+                        value={memeInfo.bottomText}
+                        onChange={handleChange}
                     />
                 </label>
                 <button>Get a new meme image 🖼</button>
             </div>
             <div className="meme">
-                <img src="http://i.imgflip.com/1bij.jpg" />
-                <span className="top">One does not simply</span>
-                <span className="bottom">Walk into Mordor</span>
+                <img src={memeInfo.image} />
+                <span className="top">{memeInfo.topText}</span>
+                <span className="bottom">{memeInfo.bottomText}</span>
             </div>
         </main>
     )
