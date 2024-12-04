@@ -8,6 +8,17 @@ export default function Main() {
         image: "http://i.imgflip.com/1bij.jpg"
     })
 
+    const [allMemes, setAllMemes] = React.useState([])
+    
+    console.log(allMemes);
+
+    React.useEffect(() => {
+        fetch("https://api.imgflip.com/get_memes")
+            .then(res => res.json())
+            .then(data => setAllMemes(data.data.memes))
+    }, [])
+
+
     function handleChange(event) {
         const { name, value } = event.target
         setMemeInfo(prevMemeInfo => ({
